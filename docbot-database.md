@@ -400,6 +400,7 @@ await prisma.user.update({
 \`\`\`
 
 #### Performance Considerations
+**Note**: Only include this section for **Comprehensive** documentation depth.
 
 **Query Performance**:
 - Email lookup: 0.5ms (indexed)
@@ -613,6 +614,7 @@ ORDER BY total_revenue DESC;
 \`\`\`
 
 #### Performance
+**Note**: Only include this section for **Comprehensive** documentation depth.
 
 **Partition Strategy** (for large datasets):
 \`\`\`sql

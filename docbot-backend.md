@@ -239,6 +239,7 @@ UPDATE user_stats SET resource_count = resource_count + 1 WHERE user_id = ?;
 \`\`\`
 
 ### Performance
+**Note**: Only include this section for **Comprehensive** documentation depth.
 
 - **Average Response Time**: 150ms (p95: 300ms)
 - **Database Queries**: 3 queries (2 indexed lookups, 1 insert)
@@ -599,6 +600,7 @@ CREATE INDEX idx_model_names_created_at ON model_names(created_at);
 - Clear cache
 
 ### Performance Considerations
+**Note**: Only include this section for **Comprehensive** documentation depth.
 
 - `field1` is indexed for fast lookups
 - Use pagination for large result sets

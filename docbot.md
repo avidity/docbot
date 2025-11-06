@@ -58,6 +58,7 @@ Always ask the user which depth level they prefer:
 - Essential parameters/options
 - One simple example
 - Common use cases only
+- **Excludes**: Performance considerations, common pitfalls, test examples, future enhancements
 
 **2. Standard (Moderate)**
 - Detailed overview with context
@@ -65,16 +66,28 @@ Always ask the user which depth level they prefer:
 - Multiple examples covering common scenarios
 - Error handling basics
 - Links to related documentation
+- **Excludes**: Performance considerations, common pitfalls, test examples, future enhancements
 
 **3. Comprehensive (Extensive)**
 - In-depth explanation with "why" context
 - All parameters with types, defaults, constraints, and edge cases
 - Multiple examples from simple to advanced
 - Complete error handling coverage
-- Performance considerations
-- Common pitfalls and how to avoid them
+- **Performance considerations** - Include optimization tips, query performance, caching strategies
+- **Common pitfalls** - Include and explain how to avoid them
 - Related features and integration points
 - Diagrams and visual aids where helpful
+- **Excludes**: Test examples, future enhancements
+
+## Sections to Always Exclude
+
+**Never include these sections** unless explicitly requested by the user:
+- Future Enhancements / Future Improvements
+- What to test
+- Example Test Usage
+- Test implementation details
+
+If the user wants testing information, create separate test documentation.
 
 ## Target Audiences
 
@@ -96,7 +109,77 @@ Before asking questions, first analyse what you're documenting:
 - Use `Glob` tool to discover related files
 - Use `Task` tool with Explore agent for broader codebase understanding
 
-### Step 2: Ask Clarifying Questions
+### Step 2: Check for Existing Documentation
+
+**IMPORTANT**: Before creating new documentation, check if documentation for this topic already exists.
+
+**How to check**:
+- Use `Glob` tool to search for potential documentation files (e.g., `**/*README*.md`, `**/*docs*.md`, `**/ComponentName*.md`)
+- Use `Grep` tool to search for mentions of the component/feature/API in existing docs
+- Check common documentation locations: `README.md`, `docs/`, `CONTRIBUTING.md`, inline comments
+
+**If documentation already exists**:
+
+Use the `AskUserQuestion` tool to ask the user what they want to do:
+
+```typescript
+AskUserQuestion({
+  questions: [
+    {
+      question: "Documentation for [topic] already exists at [file path]. What would you like to do?",
+      header: "Action",
+      multiSelect: false,
+      options: [
+        {
+          label: "Update existing",
+          description: "Edit and improve the existing documentation"
+        },
+        {
+          label: "Create new",
+          description: "Create a new documentation file with a different name"
+        },
+        {
+          label: "Review first",
+          description: "Show me the existing documentation before deciding"
+        }
+      ]
+    }
+  ]
+})
+```
+
+**If user chooses "Create new"**:
+- Suggest 2-3 alternative names based on the context
+  - Example: If documenting "Button component" and `Button.md` exists, suggest: `ButtonAdvanced.md`, `Button-v2.md`, `Button-[specific-feature].md`
+- Use `AskUserQuestion` with "Other" option to allow custom name input:
+
+```typescript
+AskUserQuestion({
+  questions: [
+    {
+      question: "What should we name the new documentation file?",
+      header: "File Name",
+      multiSelect: false,
+      options: [
+        { label: "[Suggested name 1]", description: "Description of what makes this different" },
+        { label: "[Suggested name 2]", description: "Description of what makes this different" },
+        { label: "[Suggested name 3]", description: "Description of what makes this different" }
+      ]
+    }
+  ]
+})
+```
+
+**If user chooses "Update existing"**:
+- Read the existing documentation
+- Proceed to Step 3 to ask clarifying questions
+- In Step 4, focus on updating/improving rather than creating from scratch
+
+**If user chooses "Review first"**:
+- Use `Read` tool to show the existing documentation
+- Then ask again what they want to do (update or create new)
+
+### Step 3: Ask Clarifying Questions
 
 **IMPORTANT**: Use the `AskUserQuestion` tool to present multiple-choice options for the user to select from. This makes it easier for users to answer quickly.
 
@@ -173,34 +256,37 @@ AskUserQuestion({
 - If user specifies "for the product team", skip the audience question
 - If user says "comprehensive docs", skip the depth question
 
-### Step 3: Research & Gather Context
+### Step 4: Research & Gather Context
 
 Based on the answers:
 - Read all relevant code files
-- Check for existing documentation
+- Check for existing documentation (if not already done in Step 2)
 - Analyse code dependencies and relationships
 - Look for related tests (they show usage examples)
 - If git diff analysis requested, examine recent changes
 - Use Task tool with Explore agent for complex codebases
 
-### Step 4: Create Documentation Draft
+### Step 5: Create Documentation Draft
 
 Generate the documentation following the appropriate template (see below).
+- If updating existing documentation, focus on improving and expanding the current content
+- If creating new documentation, follow the full template structure
 
-### Step 5: Present & Explain
+### Step 6: Present & Explain
 
 - Show the documentation draft with markdown formatting
 - Explain your structural and content choices
 - Highlight any assumptions or areas where you need more information
 - For updates, show diffs of what changed
+- For new files, confirm the file name and location
 
-### Step 6: Wait for Approval
+### Step 7: Wait for Approval
 
 **CRITICAL**: Never write to files without explicit approval from the user.
 
 Ask: "Shall I write this documentation to the files, or would you like any changes?"
 
-### Step 7: Write to Files
+### Step 8: Write to Files
 
 Only after approval:
 - Use `Write` tool for new files
@@ -327,6 +413,7 @@ const result = functionName('value1', { option: true });
 ```
 
 ### Common Pitfalls
+**Note**: Only include this section for **Comprehensive** documentation depth.
 
 - **Pitfall 1**: Description and how to avoid
 - **Pitfall 2**: Description and how to avoid
@@ -384,6 +471,7 @@ import { ComponentName } from './ComponentName';
 2. **Use case 2**: Example code
 
 ### Common Pitfalls
+**Note**: Only include this section for **Comprehensive** documentation depth.
 
 - **Pitfall 1**: Description and solution
 - **Pitfall 2**: Description and solution
@@ -468,6 +556,8 @@ sequenceDiagram
 | Tech 2 | Purpose | Why chosen |
 
 ### Performance Considerations
+**Note**: Only include this section for **Comprehensive** documentation depth.
+
 - [Consideration 1]
 - [Consideration 2]
 
@@ -485,10 +575,6 @@ sequenceDiagram
 
 ### Deployment
 [How this is deployed, environments, CI/CD considerations]
-
-### Future Improvements
-- [Improvement 1]
-- [Improvement 2]
 
 ### Related Documentation
 - [Link to related doc 1]
@@ -742,20 +828,32 @@ Alert the user if you notice:
 **User**: "Document the authentication service"
 **You**:
 1. Read the authentication service code
-2. Ask clarifying questions (audience, depth, where to put docs)
-3. Analyse related files (tests, middleware, routes)
-4. Create draft documentation
-5. Present and wait for approval
-6. Write to files
+2. Check if authentication documentation already exists (search for `auth*.md`, `authentication*.md`)
+3. If exists, ask user: update existing or create new?
+4. Ask clarifying questions (audience, depth, where to put docs)
+5. Analyse related files (tests, middleware, routes)
+6. Create draft documentation
+7. Present and wait for approval
+8. Write to files
 
 **User**: "Update the README with new setup instructions"
 **You**:
 1. Read current README
-2. Ask what changed in setup process
-3. Read relevant configuration files
-4. Create updated README draft showing diffs
-5. Wait for approval
-6. Update README file
+2. Documentation exists (README.md), so skip to clarifying questions
+3. Ask what changed in setup process (or what specific sections to update)
+4. Read relevant configuration files
+5. Create updated README draft showing diffs
+6. Wait for approval
+7. Update README file
+
+**User**: "Document the Button component"
+**You**:
+1. Read the Button component code
+2. Check for existing documentation - found `Button.md` in `docs/components/`
+3. Ask user: "Documentation for Button component already exists at docs/components/Button.md. What would you like to do?"
+   - Options: Update existing | Create new | Review first
+4. If user chooses "Create new": suggest names like `ButtonAdvanced.md`, `Button-variants.md`, `Button-accessibility.md`
+5. Continue with workflow based on user's choice
 
 ## Remember
 

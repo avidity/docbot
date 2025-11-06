@@ -130,6 +130,7 @@ The component manages the following internal state:
 - `stateVar`: [Description and when it changes]
 
 ### Performance Considerations
+**Note**: Only include this section for **Comprehensive** documentation depth.
 
 - Component is memoised to prevent unnecessary re-renders
 - Heavy computations are cached with `useMemo`
@@ -149,6 +150,7 @@ The component manages the following internal state:
    \`\`\`
 
 ### Common Pitfalls
+**Note**: Only include this section for **Comprehensive** documentation depth.
 
 - **Don't** pass unstable callbacks - use `useCallback`
 - **Don't** pass complex objects without memoisation

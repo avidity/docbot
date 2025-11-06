@@ -73,7 +73,6 @@ Document performance characteristics and scaling strategies.
 10. [Deployment](#deployment)
 11. [Monitoring & Observability](#monitoring--observability)
 12. [Disaster Recovery](#disaster-recovery)
-13. [Future Improvements](#future-improvements)
 
 ## Overview
 
@@ -801,26 +800,6 @@ Using OpenTelemetry to trace requests across services:
 1. Identify corruption scope
 2. Restore from last known good backup
 3. Replay transactions from backups
-
-## Future Improvements
-
-### Short Term (Next 3 months)
-
-1. **GraphQL API**: Implement GraphQL alongside REST for flexible queries
-2. **Improved Caching**: Implement intelligent cache warming
-3. **Read Replicas**: Add more database read replicas for global distribution
-
-### Medium Term (3-6 months)
-
-1. **Event-Driven Architecture**: Migrate to event sourcing for order lifecycle
-2. **Service Mesh**: Implement Istio for better service-to-service communication
-3. **Multi-Region**: Expand to multiple AWS regions for global availability
-
-### Long Term (6-12 months)
-
-1. **Machine Learning**: Predictive analytics for demand forecasting
-2. **Real-Time Features**: WebSocket-based real-time collaboration
-3. **Mobile Apps**: Native iOS and Android applications
 
 ## Related Documentation
 
