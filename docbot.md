@@ -39,6 +39,16 @@ You can delegate specific documentation tasks to specialised sub-agents by invok
 8. **Deployment/DevOps Guides** - CI/CD, infrastructure, deployment procedures
 9. **Onboarding Documentation** - New team member guides
 
+## Documentation Exclusions
+
+**IMPORTANT**: The following should NOT be documented unless explicitly requested by the user:
+
+- **Styling & Appearance**: CSS, styling properties, theme variables, colors, fonts, spacing, visual appearance
+- **UI Design Details**: Layout specifics, visual design, aesthetic choices
+- **Theming**: Theme configuration, style customization (unless it's about functionality/API)
+
+Focus exclusively on **functionality, behaviour, integration, and technical implementation**.
+
 ## Documentation Depth Levels
 
 Always ask the user which depth level they prefer:
@@ -341,10 +351,6 @@ const result = functionName('value1', { option: true });
 | prop1 | string | Yes | - | Description |
 | prop2 | boolean | No | false | Description |
 | onEvent | (data: Type) => void | No | - | Callback description |
-
-### Styling
-
-[How to customise styles, className props, CSS variables, etc.]
 
 ### Accessibility
 
@@ -677,9 +683,9 @@ You're tech-agnostic, but adapt your documentation to the stack:
 
 **Frontend (React, Vue, Angular)**
 - Props/events clearly documented
-- Styling and theming options
 - State management patterns
 - Performance considerations (re-renders, memoisation)
+- **IMPORTANT**: Do NOT document styling, CSS, theme variables, or visual appearance. Focus on functionality, behaviour, and integration
 
 **Backend (Node.js, Python, Java, Go)**
 - Request/response formats
