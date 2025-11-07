@@ -67,6 +67,31 @@ All documentation generated follows a **Standard Technical** format with these c
 - Focus on **technical audience** (developers)
 - Assumes programming knowledge
 
+## File References
+
+**IMPORTANT**: When referencing other project files, always use Markdown links with relative paths:
+
+**Format**: `[display-path](./relative-path)`
+
+**Examples**:
+- ❌ Bad: `src/components/Button.tsx`
+- ✅ Good: `[src/components/Button.tsx](./src/components/Button.tsx)`
+
+- ❌ Bad: `hooks/useAttributesApi.ts:35-161`
+- ✅ Good: `[hooks/useAttributesApi.ts:35-161](./hooks/useAttributesApi.ts)`
+
+- ❌ Bad: **Location**: `src/hooks/useAuth.ts`
+- ✅ Good: **Location**: [src/hooks/useAuth.ts](./src/hooks/useAuth.ts)
+
+- ❌ Bad: **Test File**: `src/components/Button.test.tsx`
+- ✅ Good: **Test File**: [src/components/Button.test.tsx](./src/components/Button.test.tsx)
+
+**Rules**:
+- Always use `./` prefix for relative paths in the link URL
+- Display text can include line numbers (e.g., `:35-161`)
+- Link URL should be just the file path without line numbers
+- Makes documentation navigable - readers can click to open files
+
 ## Sections Always Excluded
 
 **Never include these sections**:
@@ -162,19 +187,27 @@ AskUserQuestion({
 
 **Only ask questions when the answer is not obvious from the user's request.**
 
+**IMPORTANT**: Always create ONE documentation file in standard technical format. Never suggest multiple file formats or "Quick Reference" versions.
+
 Use the `AskUserQuestion` tool for:
 
 1. **Documentation Location** (if not obvious):
-   - README.md
-   - docs/ folder
+   - README.md - Add to main README
+   - docs/ folder - Create as `ComponentName.md` in docs/
    - Inline code comments (JSDoc/docstrings)
-   - New separate file
 
 2. **Additional Options** (optional, multiSelect: true):
    - Analyse git diffs to understand recent changes
    - Validate existing documentation for completeness
    - Include diagrams (Mermaid)
    - Check for related undocumented code
+
+**File Naming**:
+- For components: `ComponentName.md` (e.g., `Button.md`, `UserProfile.md`)
+- For features: `FeatureName.md` (e.g., `Authentication.md`)
+- For APIs: `ApiName.md` (e.g., `UsersAPI.md`)
+- Never use `.technical.md` or `.docs.md` suffixes
+- Never create multiple files with different formats
 
 **Example usage of AskUserQuestion tool**:
 ```typescript
@@ -186,9 +219,8 @@ AskUserQuestion({
       multiSelect: false,
       options: [
         { label: "README.md", description: "Add to the main README file" },
-        { label: "docs/ folder", description: "Create in the docs directory" },
-        { label: "Inline comments", description: "Add JSDoc/docstring comments in code" },
-        { label: "New file", description: "Create a new documentation file" }
+        { label: "docs/ folder", description: "Create as ComponentName.md in docs/" },
+        { label: "Inline comments", description: "Add JSDoc/docstring comments in code" }
       ]
     },
     {
@@ -222,17 +254,23 @@ Based on the answers:
 
 ### Step 5: Create Documentation Draft
 
-Generate the documentation following the appropriate template (see below).
+**IMPORTANT**: Create ONE documentation file in standard technical format only.
+
+Generate the documentation following the appropriate template (see below):
 - If updating existing documentation, focus on improving and expanding the current content
 - If creating new documentation, follow the full template structure
+- Use standard technical format (detailed, developer-focused)
+- Never create multiple file options or formats
+- Never suggest "Quick Reference" versions
 
 ### Step 6: Present & Explain
 
 - Show the documentation draft with markdown formatting
+- Present ONE file only (never multiple format options)
 - Explain your structural and content choices
 - Highlight any assumptions or areas where you need more information
 - For updates, show diffs of what changed
-- For new files, confirm the file name and location
+- For new files, confirm the file name and location (e.g., `docs/ComponentName.md`)
 
 ### Step 7: Wait for Approval
 

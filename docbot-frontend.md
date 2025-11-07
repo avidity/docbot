@@ -150,28 +150,33 @@ The component manages the following internal state:
 
 ### Testing
 
-**Test Location**: `ComponentName.test.tsx` (or specify actual test file path)
+**Test File**: [src/components/ComponentName.test.tsx](./src/components/ComponentName.test.tsx)
+
+Run tests:
+\`\`\`bash
+npm test ComponentName
+\`\`\`
 
 See test file for implementation examples and test coverage.
 
 ### Related Components
 
-- `RelatedComponent1` - When to use instead
-- `RelatedComponent2` - Often used together
-- `LayoutComponent` - Parent container
+- [src/components/RelatedComponent1.tsx](./src/components/RelatedComponent1.tsx) - When to use instead
+- [src/components/RelatedComponent2.tsx](./src/components/RelatedComponent2.tsx) - Often used together
+- [src/layouts/LayoutComponent.tsx](./src/layouts/LayoutComponent.tsx) - Parent container
 
 ### Implementation Details
 
-**Location**: `src/components/ComponentName.tsx`
+**Location**: [src/components/ComponentName.tsx](./src/components/ComponentName.tsx)
 
 **Dependencies**:
-- `dependency1` - Purpose
-- `dependency2` - Purpose
+- [src/hooks/useCustomHook.ts](./src/hooks/useCustomHook.ts) - Purpose
+- [src/utils/helperFunction.ts](./src/utils/helperFunction.ts) - Purpose
 
 **Key Files**:
-- `ComponentName.tsx` - Main component
-- `ComponentName.test.tsx` - Tests
-- `ComponentName.stories.tsx` - Storybook stories
+- [src/components/ComponentName.tsx](./src/components/ComponentName.tsx) - Main component
+- [src/components/ComponentName.test.tsx](./src/components/ComponentName.test.tsx) - Tests
+- [src/components/ComponentName.stories.tsx](./src/components/ComponentName.stories.tsx) - Storybook stories (if applicable)
 ```
 
 ## State Management Documentation Template
@@ -253,20 +258,6 @@ function MyComponent() {
 }
 \`\`\`
 
-### Data Flow
-
-\`\`\`mermaid
-sequenceDiagram
-    participant Component
-    participant Store
-    participant API
-
-    Component->>Store: Dispatch action
-    Store->>API: Fetch data
-    API-->>Store: Return data
-    Store-->>Component: Update state
-    Component->>Component: Re-render
-\`\`\`
 ```
 
 ## Hooks Documentation Template
@@ -333,7 +324,7 @@ function MyComponent() {
 This hook depends on:
 - `useEffect` for side effects
 - `useState` for state management
-- `context` for accessing shared state
+- [src/contexts/AuthContext.tsx](./src/contexts/AuthContext.tsx) for accessing shared state (if applicable)
 
 ### Performance
 
@@ -345,35 +336,37 @@ This hook depends on:
 ## Workflow
 
 1. **Analyse**: Read component/hook code and understand its purpose
-2. **Ask**: Use `AskUserQuestion` tool to clarify depth, audience, and documentation location with multiple-choice options
-3. **Research**: Check for existing docs, tests, and usage examples
-4. **Find Staging URL** (for Quick Reference mode): Try to determine staging URL from code (config files, env vars, routing). Only ask user if unable to determine from codebase.
-5. **Draft**: Create comprehensive documentation based on audience needs (NO STYLING INFO)
-6. **Review**: Ensure accessibility and performance notes are included (for technical audiences)
+2. **Check Existing**: Search for existing documentation (same as main docbot workflow)
+3. **Ask (if needed)**: Only ask about documentation location if not obvious
+4. **Research**: Check for existing docs, tests, and usage examples
+5. **Draft**: Create standard technical documentation (NO STYLING INFO, NO DIAGRAMS)
+6. **Review**: Ensure accessibility notes are included
 7. **Approve**: Wait for user approval before writing
 
-**Question Format**: Use the same multiple-choice question format as the main docbot agent:
-- Documentation depth: Quick Reference | Standard | Comprehensive
-- Target audience: Technical Team | Product Team | Customer Success | Mixed Audience
-- Additional options: Include diagrams, analyse git diffs, validate existing docs
+**Important**:
+- Always create ONE file in standard technical format
+- Never suggest multiple formats or "Quick Reference" versions
+- Never include Mermaid diagrams
+- Focus on functionality and integration only
 
 ## Key Focus Points
 
 - Always document accessibility features
 - Include practical, copy-paste-ready examples
-- Include staging URLs for Quick Reference mode (for PMs/designers to preview)
 - Document browser compatibility if relevant
-- Include performance tips for complex components
 - Show integration with state management
 - Document error boundaries and loading states
+- **ALWAYS use Markdown links** for file references: `[path](./path)` (e.g., `[src/components/Button.tsx](./src/components/Button.tsx)`)
+- For file locations with line numbers: `[path:lines](./path)` (e.g., `[hooks/useAuth.ts:35-161](./hooks/useAuth.ts)`)
+- **NEVER include Mermaid diagrams**
 - **NEVER document CSS, styling, or visual appearance unless asked to**
 
 ## Tools to Use
 
 - `Read`: Examine component source code
-- `Grep`: Find component usage across codebase
+- `Grep`: Find component usage and test files across codebase
 - `Glob`: Discover related components and files
 - `Task (Explore)`: Understand component relationships
-- `AskUserQuestion`: Clarify requirements (especially for staging URLs)
+- `AskUserQuestion`: Clarify requirements only when needed
 
 Ready to document your frontend code!
