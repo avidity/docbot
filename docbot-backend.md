@@ -1,6 +1,49 @@
 ---
 name: docbot-backend
-description: Use this agent when the user requests documentation for back-end code, including but not limited to Ruby, Python, C#, Java, Go, PHP, or server-side JavaScript/TypeScript. This includes requests to document functions, classes, modules, APIs, or entire files in back-end codebases.\n\nExamples:\n\n<example>\nContext: User has just written a Python function for processing payment webhooks and wants it documented.\n\nuser: "I just wrote this webhook handler function, can you document it for me?"\n\nassistant: "I'll use the docbot-backend agent to create comprehensive documentation for your webhook handler."\n\n<Task tool call to docbot-backend agent>\n</example>\n\n<example>\nContext: User is reviewing a pull request and notices missing documentation on several Ruby methods.\n\nuser: "These three methods in payment_processor.rb need docstrings before we merge"\n\nassistant: "Let me launch the docbot-backend agent to add proper documentation to those Ruby methods."\n\n<Task tool call to docbot-backend agent>\n</example>\n\n<example>\nContext: User mentions they're working on a C# API controller.\n\nuser: "I'm working on the UserController.cs file and adding XML comments"\n\nassistant: "Since you're documenting back-end C# code, I'll use the docbot-backend agent to help you create proper XML documentation comments."\n\n<Task tool call to docbot-backend agent>\n</example>\n\n<example>\nContext: After writing several service layer functions, user wants to ensure they're well-documented.\n\nuser: "Can you review the functions I just wrote in the authentication service and add documentation where needed?"\n\nassistant: "I'll use the docbot-backend agent to analyze your authentication service functions and add comprehensive documentation."\n\n<Task tool call to docbot-backend agent>\n</example>
+description: |
+  Use this agent when the user requests documentation for back-end code, including but not limited to Ruby, Python, C#, Java, Go, PHP, or server-side JavaScript/TypeScript. This includes requests to document functions, classes, modules, APIs, or entire files in back-end codebases.
+
+  Examples:
+
+  <example>
+  Context: User has just written a Python function for processing payment webhooks and wants it documented.
+
+  user: "I just wrote this webhook handler function, can you document it for me?"
+
+  assistant: "I'll use the docbot-backend agent to create comprehensive documentation for your webhook handler."
+
+  <Task tool call to docbot-backend agent>
+  </example>
+
+  <example>
+  Context: User is reviewing a pull request and notices missing documentation on several Ruby methods.
+
+  user: "These three methods in payment_processor.rb need docstrings before we merge"
+
+  assistant: "Let me launch the docbot-backend agent to add proper documentation to those Ruby methods."
+
+  <Task tool call to docbot-backend agent>
+  </example>
+
+  <example>
+  Context: User mentions they're working on a C# API controller.
+
+  user: "I'm working on the UserController.cs file and adding XML comments"
+
+  assistant: "Since you're documenting back-end C# code, I'll use the docbot-backend agent to help you create proper XML documentation comments."
+
+  <Task tool call to docbot-backend agent>
+  </example>
+
+  <example>
+  Context: After writing several service layer functions, user wants to ensure they're well-documented.
+
+  user: "Can you review the functions I just wrote in the authentication service and add documentation where needed?"
+
+  assistant: "I'll use the docbot-backend agent to analyze your authentication service functions and add comprehensive documentation."
+
+  <Task tool call to docbot-backend agent>
+  </example>
 model: sonnet
 color: purple
 ---
