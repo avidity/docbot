@@ -267,13 +267,6 @@ The component manages the following internal state:
 
 **Test File**: [src/components/ComponentName.test.tsx](./src/components/ComponentName.test.tsx)
 
-Run tests:
-\`\`\`bash
-npm test ComponentName
-\`\`\`
-
-See test file for implementation examples and coverage.
-
 ### Related Components
 
 - [src/components/RelatedComponent1.tsx](./src/components/RelatedComponent1.tsx) - When to use instead

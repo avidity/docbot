@@ -1,83 +1,56 @@
-# Docbot - Technical Documentation Specialist
+# Docbot - Technical Documentation Agents
 
-A streamlined documentation agent for creating consistent, technical documentation for your codebase.
+A suite of intelligent documentation agents for Claude Code that automatically document your codebase. These agents are invoked automatically when you request documentation for frontend or backend code.
 
 ## 📦 Installation
 
-Copy the docbot files to your Claude Code commands directory:
+Copy the docbot agent files to your Claude Code agents directory:
 
 ```bash
 # Clone the repository
 git clone git@github.com:avidity/docbot.git
 cd docbot
 
-# Install to Claude Code
-cp docbot*.md ~/.claude/commands/
+# Install to Claude Code agents directory
+cp docbot*.md ~/.claude/agents/
 
-# Start using
-/docbot
+# Or create a symlink to keep them updated
+ln -s $(pwd)/docbot*.md ~/.claude/agents/
 ```
 
 ### Files Included
 
-- `docbot.md` - Main documentation agent
-- `docbot-frontend.md` - Frontend/UI component specialist
+- `docbot-frontend.md` - Frontend/UI component documentation specialist
+- `docbot-backend.md` - Backend code and API documentation specialist
+- `example-info-for-claude-md.md` - Template for project-specific documentation guidelines
 
 ---
 
 ## Overview
 
-Docbot helps you create technical documentation for:
-- Components (React, Vue, Angular)
-- Functions and methods
-- APIs and endpoints
-- Architecture and system design
-- README files and project setup
-- Database schemas
+Docbot provides specialized agents that automatically handle documentation for:
+- **Frontend**: Components (React, Vue, Angular), hooks, state management, UI libraries
+- **Backend**: Functions, classes, modules, APIs, server-side code (Python, Ruby, Go, Java, C#, etc.)
 
-All documentation follows a **standard technical format** focused on developers, written in British English.
+All documentation follows a **standard technical format** focused on developers..
 
-## Quick Start
+## How It Works
 
-Invoke docbot:
+Docbot uses Claude Code's agent system. When you request documentation, Claude automatically invokes the appropriate specialized agent:
 
+**For frontend code:**
 ```
-/docbot
+Document the UserProfile component in src/components/UserProfile.tsx
 ```
+→ Claude automatically uses `docbot-frontend` agent
 
-You'll see:
+**For backend code:**
 ```
-🤖 Ready to document. What would you like me to document?
+Document the payment webhook handler in src/api/webhooks.py
 ```
+→ Claude automatically uses `docbot-backend` agent
 
-Then tell docbot what you need:
-
-```
-> Document the UserProfile component in src/components/UserProfile.tsx
-```
-
-Docbot will:
-1. Analyze your code
-2. Check if documentation already exists (and ask if you want to update or create new)
-3. Ask clarifying questions only when needed (e.g., where to save the file)
-4. Create a documentation draft
-5. Wait for your approval before writing files
-
-## Specialized Agent
-
-### `/docbot-frontend` - Frontend Documentation Specialist
-
-Use for frontend-specific documentation:
-- React, Vue, Angular components
-- Props, events, and hooks
-- State management
-- Component integration
-
-**Example:**
-```
-/docbot-frontend
-> Document the Button component with all props and usage examples
-```
+No slash commands needed—just describe what you want documented!
 
 ## Documentation Standard
 
@@ -87,21 +60,14 @@ All documentation includes:
 - Multiple usage examples
 - Error handling basics
 - Links to related code
-
-**Excluded by default** (unless explicitly requested):
-- Performance tips and optimization
-- Common pitfalls
-- Test examples
-- Future enhancements
-
-**Never documented** (unless explicitly requested):
-- Styling (CSS, colors, fonts, spacing)
-- Visual appearance and design
-- Theme configuration
+- **Frontend**: Accessibility features (keyboard navigation, ARIA, screen readers)
+- **Backend**: Side effects, thread safety, performance considerations
 
 Focus: **Functionality, behavior, integration, and technical implementation**
 
-## Workflow
+## Agent Workflow
+
+Both agents follow a consistent workflow:
 
 1. **Analyze**: Reads code to understand what needs documenting
 2. **Check Existing**: Searches for existing documentation
@@ -117,32 +83,32 @@ Focus: **Functionality, behavior, integration, and technical implementation**
 
 ## Example Usage
 
-### Document a Component
+Simply ask Claude to document your code:
 
 ```
-/docbot
-> Document the LoginForm component
+Document the LoginForm component in src/components/LoginForm.tsx
+```
+
+```
+Document the authentication middleware in src/middleware/auth.js
 ```
 
 ### Update Existing Docs
 
 ```
-/docbot
-> Update the API documentation in docs/api.md with the new authentication endpoints
+Update the API documentation in docs/api.md with the new authentication endpoints
+```
+
+### Document Multiple Files
+
+```
+Document all components in src/components/
 ```
 
 ### Create README
 
 ```
-/docbot
-> Create a README for this project
-```
-
-### Frontend-Specific
-
-```
-/docbot-frontend
-> Document all components in src/components/
+Create a README for this project
 ```
 
 ## Best Practices
@@ -154,70 +120,83 @@ Focus: **Functionality, behavior, integration, and technical implementation**
 
 ### Provide Context
 
+Include helpful details in your request:
 - "Document this API with cURL examples"
 - "Focus on error handling"
 - "Include integration examples"
+- "Add accessibility documentation"
 
 ### Review Before Approval
 
-- Check accuracy
+- Check accuracy of the generated documentation
 - Request changes if needed
 - Approve only when satisfied
 
 ### Keep Docs Updated
 
 ```
-/docbot
-> Update the README with the new installation steps
+Update the README with the new installation steps
 ```
 
 ## Troubleshooting
 
-**Docbot isn't finding files**
+**Agent isn't finding files**
 - Provide full file paths from project root
 - Use glob patterns: `src/components/**/*.tsx`
+- Example: "Document all TypeScript files in src/api/"
 
-**Documentation exists already**
-- Docbot will ask if you want to update or create new
+**Documentation already exists**
+- The agent will ask if you want to update or create new
 - Choose "Update existing" to modify current docs
 - Choose "Create new" to get alternative filename suggestions
 
 **Need different format**
 - Request specific changes before approval
 - Be explicit about what you want different
+- Example: "Add more examples" or "Make it more concise"
 
-**Docbot asks too many questions**
+**Too many clarifying questions**
 - Be more specific in your initial request
 - Include location in your prompt: "Document X in docs/components/"
+- Specify format: "Add inline JSDoc comments" vs "Create a separate markdown file"
 
 ## Customization
 
-Edit the agent files to customize:
-- Documentation templates
+Edit the agent files to customize behavior:
+- Documentation templates and structure
 - Style and tone
-- Excluded sections
+- Included/excluded sections
 - Examples format
+- Agent invocation criteria
 
 ```bash
-# Edit main agent
-vim ~/.claude/commands/docbot.md
+# Edit frontend agent
+vim ~/.claude/agents/docbot-frontend.md
 
-# Edit frontend specialist
-vim ~/.claude/commands/docbot-frontend.md
+# Edit backend agent
+vim ~/.claude/agents/docbot-backend.md
 ```
 
-## Support
+## Project-Specific Guidelines
 
-- Open an issue in this repository
-- Share feedback and suggestions
-- Request new features
+Use the `example-info-for-claude-md.md` template to create a `CLAUDE.md` file in your project root. This helps the agents understand your project's:
+- Documentation style preferences
+- Code conventions
+- Project structure
+- Language-specific requirements
 
----
+```bash
+# Copy template to your project
+cp example-info-for-claude-md.md /your/project/CLAUDE.md
+
+# Edit with your project details
+vim /your/project/CLAUDE.md
+```
+
+The agents will automatically read and follow guidelines from `CLAUDE.md` when documenting your code.
 
 **Ready to document?**
 
-```
-/docbot
-```
+Just ask Claude to document your code—the agents handle the rest!
 
 Happy documenting! 🤖
