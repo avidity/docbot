@@ -399,25 +399,6 @@ await prisma.user.update({
 });
 \`\`\`
 
-#### Performance Considerations
-**Note**: Only include this section for **Comprehensive** documentation depth.
-
-**Query Performance**:
-- Email lookup: 0.5ms (indexed)
-- ID lookup: 0.3ms (primary key)
-- Full table scan: 500ms (avoid!)
-
-**Optimisations**:
-- Email is indexed for fast login queries
-- Partial index on `last_login_at` for active users only
-- Connection pooling configured (max 20 connections)
-- Query result caching for frequently accessed users (5 minute TTL)
-
-**Scaling Considerations**:
-- Current: 1M users, 500MB table size
-- Read replicas for read-heavy queries
-- Consider partitioning by `created_at` when reaching 10M users
-
 #### Data Validation
 
 **Application-Level Validation**:
@@ -612,31 +593,6 @@ ORDER BY total_revenue DESC;
 
 -- Execution time: 25ms
 \`\`\`
-
-#### Performance
-**Note**: Only include this section for **Comprehensive** documentation depth.
-
-**Partition Strategy** (for large datasets):
-\`\`\`sql
--- Partition by created_at (monthly)
-CREATE TABLE orders (
-  -- columns
-) PARTITION BY RANGE (created_at);
-
-CREATE TABLE orders_2025_01 PARTITION OF orders
-  FOR VALUES FROM ('2025-01-01') TO ('2025-02-01');
-
-CREATE TABLE orders_2025_02 PARTITION OF orders
-  FOR VALUES FROM ('2025-02-01') TO ('2025-03-01');
-
--- Automatic partition management with pg_partman
-\`\`\`
-
-**Current Performance**:
-- Table size: 50 GB
-- Row count: 5M orders
-- Daily inserts: 10,000
-- Index size: 15 GB
 
 ---
 

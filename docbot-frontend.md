@@ -129,14 +129,6 @@ import { ComponentName } from '@/components/ComponentName';
 The component manages the following internal state:
 - `stateVar`: [Description and when it changes]
 
-### Performance Considerations
-**Note**: Only include this section for **Comprehensive** documentation depth.
-
-- Component is memoised to prevent unnecessary re-renders
-- Heavy computations are cached with `useMemo`
-- Callbacks are stabilised with `useCallback`
-- [Other optimisations]
-
 ### Common Use Cases
 
 1. **Use Case 1**: [Description]
@@ -148,14 +140,6 @@ The component manages the following internal state:
    \`\`\`tsx
    <ComponentName {...specificProps} />
    \`\`\`
-
-### Common Pitfalls
-**Note**: Only include this section for **Comprehensive** documentation depth.
-
-- **Don't** pass unstable callbacks - use `useCallback`
-- **Don't** pass complex objects without memoisation
-- **Do** provide accessible labels for interactive elements
-- **Do** handle loading and error states
 
 ### Browser Support
 

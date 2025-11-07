@@ -238,14 +238,6 @@ SELECT * FROM users WHERE id = ?;
 UPDATE user_stats SET resource_count = resource_count + 1 WHERE user_id = ?;
 \`\`\`
 
-### Performance
-**Note**: Only include this section for **Comprehensive** documentation depth.
-
-- **Average Response Time**: 150ms (p95: 300ms)
-- **Database Queries**: 3 queries (2 indexed lookups, 1 insert)
-- **Caching**: Results cached for 5 minutes
-- **Async Operations**: Webhook sent via background job
-
 ### Security Considerations
 
 - ✅ Input validation using JSON schema
@@ -598,14 +590,6 @@ CREATE INDEX idx_model_names_created_at ON model_names(created_at);
 **After Delete**:
 - Clean up related records
 - Clear cache
-
-### Performance Considerations
-**Note**: Only include this section for **Comprehensive** documentation depth.
-
-- `field1` is indexed for fast lookups
-- Use pagination for large result sets
-- Consider caching frequently accessed records
-- Bulk operations available for batch processing
 
 ### Related Models
 

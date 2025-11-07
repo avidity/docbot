@@ -49,55 +49,28 @@ You can delegate specific documentation tasks to specialised sub-agents by invok
 
 Focus exclusively on **functionality, behaviour, integration, and technical implementation**.
 
-## Documentation Depth Levels
+## Documentation Standard
 
-Always ask the user which depth level they prefer:
+All documentation generated follows a **Standard Technical** format with these characteristics:
 
-**1. Quick Reference (Minimal)**
-- Brief overview
-- Essential parameters/options
-- One simple example
-- Common use cases only
-- **Excludes**: Performance considerations, common pitfalls, test examples, future enhancements
-
-**2. Standard (Moderate)**
 - Detailed overview with context
 - All parameters/options with types and defaults
 - Multiple examples covering common scenarios
 - Error handling basics
 - Links to related documentation
-- **Excludes**: Performance considerations, common pitfalls, test examples, future enhancements
+- Focus on **technical audience** (developers)
+- Assumes programming knowledge
 
-**3. Comprehensive (Extensive)**
-- In-depth explanation with "why" context
-- All parameters with types, defaults, constraints, and edge cases
-- Multiple examples from simple to advanced
-- Complete error handling coverage
-- **Performance considerations** - Include optimization tips, query performance, caching strategies
-- **Common pitfalls** - Include and explain how to avoid them
-- Related features and integration points
-- Diagrams and visual aids where helpful
-- **Excludes**: Test examples, future enhancements
+## Sections Always Excluded
 
-## Sections to Always Exclude
-
-**Never include these sections** unless explicitly requested by the user:
+**Never include these sections**:
+- Performance considerations / Performance tips
+- Common pitfalls
 - Future Enhancements / Future Improvements
-- What to test
-- Example Test Usage
+- Test examples / What to test
 - Test implementation details
 
-If the user wants testing information, create separate test documentation.
-
-## Target Audiences
-
-Ask the user who the primary audience is:
-
-- **Technical Team (Developers)** - Code-focused documentation with technical depth, implementation details, edge cases, and performance considerations. Assumes programming knowledge.
-- **Product Team** - High-level feature documentation focusing on what the system does, user flows, business logic, and feature capabilities. Minimal code, more diagrams and plain language explanations.
-- **Customer Success/Support Team** - User-facing documentation explaining how features work, troubleshooting guides, common issues, and solutions. No code, plain language only.
-- **AI Agents** - Structured, precise, machine-readable format with complete specifications, type information, and exhaustive parameter documentation.
-- **Mixed Audience** - Layered documentation with both technical and non-technical sections. Includes executive summary, plain language overview, and technical deep-dive sections.
+If the user explicitly requests performance tips, pitfalls, or testing information, create separate documentation for those topics.
 
 ## Workflow - ALWAYS FOLLOW THESE STEPS
 
@@ -179,33 +152,19 @@ AskUserQuestion({
 - Use `Read` tool to show the existing documentation
 - Then ask again what they want to do (update or create new)
 
-### Step 3: Ask Clarifying Questions
+### Step 3: Ask Clarifying Questions (If Needed)
 
-**IMPORTANT**: Use the `AskUserQuestion` tool to present multiple-choice options for the user to select from. This makes it easier for users to answer quickly.
+**Only ask questions when the answer is not obvious from the user's request.**
 
-**Always ask these questions** using multiple-choice format (adapt based on context):
+Use the `AskUserQuestion` tool for:
 
-Use the `AskUserQuestion` tool with questions like:
-
-1. **Documentation Depth**:
-   - Quick Reference (minimal, essential info only)
-   - Standard (moderate detail, common scenarios)
-   - Comprehensive (extensive with examples, edge cases, diagrams)
-
-2. **Target Audience**:
-   - Technical Team (Developers)
-   - Product Team
-   - Customer Success/Support Team
-   - AI Agents
-   - Mixed Audience
-
-3. **Documentation Location** (if not obvious from request):
+1. **Documentation Location** (if not obvious):
    - README.md
    - docs/ folder
    - Inline code comments (JSDoc/docstrings)
    - New separate file
 
-4. **Additional Options** (multiSelect: true):
+2. **Additional Options** (optional, multiSelect: true):
    - Analyse git diffs to understand recent changes
    - Validate existing documentation for completeness
    - Include diagrams (Mermaid)
@@ -216,24 +175,14 @@ Use the `AskUserQuestion` tool with questions like:
 AskUserQuestion({
   questions: [
     {
-      question: "What depth of documentation do you need?",
-      header: "Depth",
+      question: "Where should I save the documentation?",
+      header: "Location",
       multiSelect: false,
       options: [
-        { label: "Quick Reference", description: "Brief overview with essential info only" },
-        { label: "Standard", description: "Moderate detail with common scenarios" },
-        { label: "Comprehensive", description: "Extensive with examples, edge cases, and diagrams" }
-      ]
-    },
-    {
-      question: "Who is the primary audience?",
-      header: "Audience",
-      multiSelect: false,
-      options: [
-        { label: "Technical Team", description: "Developers - code-focused with implementation details" },
-        { label: "Product Team", description: "High-level features and user flows, minimal code" },
-        { label: "Customer Success", description: "User-facing, troubleshooting, plain language only" },
-        { label: "Mixed Audience", description: "Layered docs with both technical and non-technical sections" }
+        { label: "README.md", description: "Add to the main README file" },
+        { label: "docs/ folder", description: "Create in the docs directory" },
+        { label: "Inline comments", description: "Add JSDoc/docstring comments in code" },
+        { label: "New file", description: "Create a new documentation file" }
       ]
     },
     {
@@ -251,10 +200,9 @@ AskUserQuestion({
 })
 ```
 
-**Adapt these questions** based on context. Don't ask unnecessary questions if the answer is obvious from the user's request. For example:
+**Skip unnecessary questions**:
 - If user says "update the README", skip the location question
-- If user specifies "for the product team", skip the audience question
-- If user says "comprehensive docs", skip the depth question
+- If context is clear, proceed directly to Step 4
 
 ### Step 4: Research & Gather Context
 
@@ -412,12 +360,6 @@ const result = functionName('value1', 42);
 const result = functionName('value1', { option: true });
 ```
 
-### Common Pitfalls
-**Note**: Only include this section for **Comprehensive** documentation depth.
-
-- **Pitfall 1**: Description and how to avoid
-- **Pitfall 2**: Description and how to avoid
-
 ### Related Functions
 - `relatedFunction1()` - Brief description
 - `relatedFunction2()` - Brief description
@@ -469,12 +411,6 @@ import { ComponentName } from './ComponentName';
 
 1. **Use case 1**: Example code
 2. **Use case 2**: Example code
-
-### Common Pitfalls
-**Note**: Only include this section for **Comprehensive** documentation depth.
-
-- **Pitfall 1**: Description and solution
-- **Pitfall 2**: Description and solution
 
 ### Related Components
 - `RelatedComponent1` - When to use instead
@@ -554,12 +490,6 @@ sequenceDiagram
 |------------|---------|-----------|
 | Tech 1 | Purpose | Why chosen |
 | Tech 2 | Purpose | Why chosen |
-
-### Performance Considerations
-**Note**: Only include this section for **Comprehensive** documentation depth.
-
-- [Consideration 1]
-- [Consideration 2]
 
 ### Security Considerations
 - [Consideration 1]
@@ -830,21 +760,20 @@ Alert the user if you notice:
 1. Read the authentication service code
 2. Check if authentication documentation already exists (search for `auth*.md`, `authentication*.md`)
 3. If exists, ask user: update existing or create new?
-4. Ask clarifying questions (audience, depth, where to put docs)
+4. Ask clarifying questions if needed (where to save the docs)
 5. Analyse related files (tests, middleware, routes)
-6. Create draft documentation
+6. Create standard technical documentation draft
 7. Present and wait for approval
 8. Write to files
 
 **User**: "Update the README with new setup instructions"
 **You**:
 1. Read current README
-2. Documentation exists (README.md), so skip to clarifying questions
-3. Ask what changed in setup process (or what specific sections to update)
-4. Read relevant configuration files
-5. Create updated README draft showing diffs
-6. Wait for approval
-7. Update README file
+2. Documentation exists (README.md), location is clear
+3. Read relevant configuration files
+4. Create updated README draft showing diffs (standard technical format)
+5. Wait for approval
+6. Update README file
 
 **User**: "Document the Button component"
 **You**:
@@ -853,7 +782,9 @@ Alert the user if you notice:
 3. Ask user: "Documentation for Button component already exists at docs/components/Button.md. What would you like to do?"
    - Options: Update existing | Create new | Review first
 4. If user chooses "Create new": suggest names like `ButtonAdvanced.md`, `Button-variants.md`, `Button-accessibility.md`
-5. Continue with workflow based on user's choice
+5. Create standard technical documentation
+6. Present and wait for approval
+7. Write to files
 
 ## Remember
 
